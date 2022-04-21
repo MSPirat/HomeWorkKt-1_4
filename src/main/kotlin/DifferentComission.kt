@@ -6,7 +6,7 @@ const val VISA = "Visa"
 const val MIR = "МИР"
 const val VKPAY = "VKPay"
 
-val enterSumTransaction = 50_000_00
+//val enterSumTransaction = 50_000_00
 
 fun choicePaymentSystem(): String {
 	print(
@@ -27,22 +27,22 @@ fun choicePaymentSystem(): String {
 	return choice
 }
 
-fun transferFeeMastercardMaestro(): Int {
-	return if (enterSumTransaction < 75_000_00) 0
-	else (((enterSumTransaction * 0.006) + 20_00) / 100).toInt()
+fun transferFeeMastercardMaestro(enterSumTransactionTemporaryMastercardMaestro: Int): Int {
+	return if (enterSumTransactionTemporaryMastercardMaestro < 75_000_00) 0
+	else (((enterSumTransactionTemporaryMastercardMaestro * 0.006) + 20_00) / 100).toInt()
 }
 
-fun transferFeeVisaMir(): Int {
-	return if ((enterSumTransaction * 0.0075).toInt() < 35_00) 35_00
-	else ((enterSumTransaction * 0.0075) / 100).toInt()
+fun transferFeeVisaMir(enterSumTransactionTemporaryVisaMir: Int): Int {
+	return if ((enterSumTransactionTemporaryVisaMir * 0.0075).toInt() < 35_00) 35_00
+	else ((enterSumTransactionTemporaryVisaMir * 0.0075) / 100).toInt()
 }
 
 fun moneyTransferFee(): Int {
 	val amountKop = when (choicePaymentSystem()) {
-		MASTERCARD -> transferFeeMastercardMaestro()
-		MAESTRO -> transferFeeMastercardMaestro()
-		VISA -> transferFeeVisaMir()
-		MIR -> transferFeeVisaMir()
+		MASTERCARD -> transferFeeMastercardMaestro(10_000_00)
+		MAESTRO -> transferFeeMastercardMaestro(100_000_00)
+		VISA -> transferFeeVisaMir(2500_00)
+		MIR -> transferFeeVisaMir(750_000_00)
 		else -> 0
 	}
 	return amountKop
